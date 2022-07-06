@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends React.Component {
@@ -17,6 +17,13 @@ class MusicCard extends React.Component {
     this.setState({ loading: true });
     await addSong(data);
     this.setState({ loading: false, check: true });
+    this.getSongsFavorite();
+  }
+
+  getSongsFavorite = async () => {
+    const { data } = this.props;
+    this.setState({ check: true });
+    await getFavoriteSongs(data);
   }
 
   render() {
